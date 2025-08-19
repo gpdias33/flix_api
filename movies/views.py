@@ -1,0 +1,17 @@
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+from app.permissions import GlobalDefaultPermission
+from movies.models import Movie
+from movies.serializers import MovieModelSerializer
+
+# Create your views here.
+class MovieCreateListView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated, GlobalDefaultPermission,]  # Ensure the user is authenticated to access this view
+    queryset = Movie.objects.all()
+    serializer_class = MovieModelSerializer
+
+
+class MovieRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated, GlobalDefaultPermission,]  # Ensure the user is authenticated to access this view
+    queryset = Movie.objects.all()
+    serializer_class = MovieModelSerializer
